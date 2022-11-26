@@ -11,13 +11,28 @@
 
 describe('Issue filtering', () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.visit('https://jira.ivorreic.com/project/board');
   });
 
   it('Should filter issues by title', () => {
     getSearchInput().debounced('type', 'multiple assignee');
     cy.get('[data-testid="list-issue"]').should('have.length', '1');
   });
+
+  const issuesToValidate = [
+    {issueName:'task', expectedNumberOfIssues:'1'},
+    {issueName:'you can', expectedNumberOfIssues:'2'},
+    {issueName:'an issue', expectedNumberOfIssues:'3'}
+  ]
+
+  for (let issue of issuesToValidate) {
+    it('Validate issue numbers by searching', () => {
+      getSearchInput().debounced('type', issue.issueName);
+      cy.get('[data-testid="list-issue"]').should('have.length', issue.expectedNumberOfIssues)
+    });
+  }
+  
+  const getSearchInput = () => cy.get('[data-testid="board-filters"]').find('input');
 
   /**
    * New tests can be created here for practice
@@ -26,5 +41,20 @@ describe('Issue filtering', () => {
    * 3. Filter by "Recently Updated" button
    */
 
-  const getSearchInput = () => cy.get('[data-testid="board-filters"]').find('input');
+  
+  const issuesByAvatar = [
+    {issueAssignee:'Lord Gaben', expectedNumberOfIssues:'2'},
+    {issueAssignee:'Baby Yoda', expectedNumberOfIssues:'2'},
+    {issueAssignee:'Pickle Rick', expectedNumberOfIssues:'2'}
+  ]
+
+  for (let issue1 of issuesByAvatar) {
+    it.only('Validate issue numbers by Avatar', () => {
+      cy.get('[class="sc-dqBHgY hQtGun"]').contains(issue1.issueAssignee ).click()
+      cy.get('[data-testid="list-issue"]').should('have.length', issue1.expectedNumberOfIssues)
+    });
+  }
+
+
+
 });

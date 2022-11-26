@@ -40,7 +40,7 @@ describe('Issue details editing', () => {
     });
   });
 
-  it('Should update type, status, assignees, reporter, priority successfully', () => {
+  it.skip('Should update type, status, assignees, reporter, priority successfully', () => {
     getIssueDetailsModal().within(() => {
       cy.get('[data-testid="select:type"]').click('bottomRight');
       cy.get('[data-testid="select-option:Story"]')
@@ -65,7 +65,7 @@ describe('Issue details editing', () => {
 
       cy.get('[data-testid="select:priority"]').click('bottomRight');
       cy.get('[data-testid="select-option:Medium"]').click();
-      cy.get('[data-testid="select:priority"]').should('have.text', 'Medium');
+      cy.get('[data-testid="select:priority"]').should('have.text', 'Medium'); 
     });
   });
 
@@ -94,7 +94,7 @@ describe('Issue details editing', () => {
     });
   });
 
-  it('Should delete an issue successfully', () => {
+  it.skip('Should delete an issue successfully', () => {
     getIssueDetailsModal()
       .find(`button ${'[data-testid="icon:trash"]'}`)
       .click();
