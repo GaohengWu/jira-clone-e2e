@@ -2,22 +2,31 @@ import IssueModalGao from "../pages/IssueModalGao";
 
 describe('Issue create', () => {
     beforeEach(() => {
-      cy.visit('/');
-      cy.intercept('GET','**/currentUser').as('currentUserApiRequest')
-      cy.url().should('eq', 'http://34.247.67.214:8080/project').then((url) => {
-        cy.wait('@currentUserApiRequest')
+      cy.visit('https://jira.ivorreic.com/project/board');
+      cy.url().should('eq', 'https://jira.ivorreic.com/project/board').then((url) => {
         cy.visit(url + '/settings?modal-issue-create=true');
       });
     });
 
-    let issueModal = new IssueModal();
-
     it('Should create an issue and validate it successfully', () => {
-        IssueModal.createIssue('This is the title', 'This is the description');
+        const issueType = 'Bug';
+        const title = 'This is the title';
+        const description = 'This is the description';
+        const assigneeName = 'Baby Yoda';
+
+        IssueModalGao.createIssue(issueType, title, description, assigneeName);
     });
 
     it('Should validate title is required field if missing', () => {
-        IssueModal.validateTitleFieldError();
-      });
+        const expectedAmountIssues = 4;
+        const assigneeName = 'Baby Yoda';
+        
+        IssueModalGao.ensureIssueIsCreated(expectedAmountIssues, assigneeName);
+    });
+
+    it('Check that title field is mandatory', () => {
+        IssueModalGao.validateTitleFieldError();
+    });
+
   });
   
