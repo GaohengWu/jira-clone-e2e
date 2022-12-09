@@ -11,7 +11,7 @@ class IssueModalGao {
         this.backlog = '[data-testid="board-list:backlog';
         this.listIssue = '[data-testid="list-issue"]';
         this.titleFieldError = '[data-testid="form-field:title"]';
-        this.createButton = '[data-testid="icon:plus"]'
+        this.createButton = '[data-testid="icon:plus"]';
         this.trashIcon = '[data-testid="icon:trash"]';
     }
 
